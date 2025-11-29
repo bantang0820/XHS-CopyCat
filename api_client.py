@@ -1,9 +1,15 @@
 import requests
 import json
 import base64
+import streamlit as st # Import streamlit for secrets
 from concurrent.futures import ThreadPoolExecutor
 
-API_KEY = "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"
+# 优先从 Secrets 读取 Key，如果不存在（如本地环境）则使用硬编码的 Key
+try:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
+except Exception:
+    API_KEY = "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"
+
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = "google/gemini-2.5-flash"
 
